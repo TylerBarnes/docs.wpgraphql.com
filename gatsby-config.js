@@ -1,152 +1,130 @@
-const path = require(`path`)
-let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || 'development'
-
-/**
- * Access environmental variables
- */
-require('dotenv').config({
-  path: `.env.${activeEnv}`,
-})
+const themeOptions = require("gatsby-theme-apollo-docs/theme-options")
 
 module.exports = {
-  siteMetadata: {
-    title: `WPGraphQL`,
-    description: `Documentation and marketing site for WPGraphQL. Built with Gatsby.`,
-    author: `@wpgraphql`,
-  },
-  plugins: [
-    {
-      resolve: 'gatsby-plugin-antd',
-      options: {
-        style: true,
-      },
-    },
-    `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-mdx`,
-      options: {
-        defaultLayouts: {
-          default: path.resolve('./src/components/SiteLayout.js')
-        },
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 1035,
-              sizeByPixelDensity: true
-            }
-          },
-          {
-            resolve: "gatsby-remark-copy-linked-files",
-          },
-          {
-            resolve: `gatsby-transformer-remark`,
-            options: {
-              plugins: [`gatsby-remark-autolink-headers`],
-            },
-          }
-        ]
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-less',
-      options: {
-        javascriptEnabled: true,
-        modifyVars: {
-          // DEFAULTS FOR ANT DESIGN
-          // Full list of variables can be found here:
-          // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
-          // @primary-color: #1890ff;
-          'layout-header-background': '#0E2339',
-          // primary color for all components
-          'primary-color': '#1890ff',
-          // @link-color: #1890ff;
-          'link-color': '#1890ff',
-          // @success-color: #52c41a;
-          'success-color': '#52c41a',
-          // @warning-color: #faad14;
-          'warning-color': '#faad14',
-          // @error-color: #f5222d;
-          'error-color': '#f5222d',
-          // @font-size-base: 14px;
-          // major text font size
-          'font-size-base': '16px',
-          // @heading-color: rgba(0, 0, 0, .85);
-          'heading-color': 'rgba(0, 0, 0, .85)',
-          // @text-color: rgba(0, 0, 0, .65);
-          'text-color': 'rgba(0, 0, 0, .65)',
-          // @text-color-secondary : rgba(0, 0, 0, .45);
-          'text-color-secondary': 'rgba(0, 0, 0, .45)',
-          // @disabled-color : rgba(0, 0, 0, .25);
-          'disabled-color': 'rgba(0, 0, 0, .25)',
-          // @border-radius-base: 4px;
-          'border-radius-base': '4px',
-          // @border-color-base: #d9d9d9;
-          'border-color-base': '#d9d9d9',
-          // @box-shadow-base: 0 2px 8px rgba(0, 0, 0, .15);
-          'box-shadow-base': '0 2px 8px rgba(0, 0, 0, .15)',
-        },
-      },
-    },
-    {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        // This type will contain remote schema Query type
-        typeName: 'SWAPI',
-        // This is field under which it's accessible
-        fieldName: 'swapi',
-        // Url to query from
-        url: 'https://api.graphcms.com/simple/v1/swapi',
-      },
-    },
-    {
-      resolve: `gatsby-source-graphql`,
-      options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        // Url to query from
-        url: 'https://api.github.com/graphql',
-        // HTTP headers
-        headers: {
-          // Learn about environment variables: https://gatsby.app/env-vars
-          Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-        },
-      },
-    },
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/content`,
-        name: 'content'
-      }
-    },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#0E2339`,
-        theme_color: `#0E2339`,
-        display: `minimal-ui`,
-        icon: `src/images/icon.png`, // This path is relative to the root of the site.
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: 'UA-111783024-1'
-      }
-    },
-  ],
+	siteMetadata: {
+		siteName: `WPGraphQL`,
+		description: `Documentation and marketing site for WPGraphQL. Built with Gatsby.`,
+		twitterHandle: `@wpgraphql`,
+	},
+	plugins: [
+		`gatsby-plugin-sharp`,
+		{
+			resolve: `gatsby-source-filesystem`,
+			options: {
+				name: `images`,
+				path: `${__dirname}/source/images`,
+			},
+		},
+		`gatsby-transformer-sharp`,
+		`gatsby-plugin-sharp`,
+		{
+			resolve: `gatsby-plugin-manifest`,
+			options: {
+				name: `wpgraphql-docs`,
+				short_name: `wpgraphql`,
+				start_url: `/`,
+				background_color: `#0E2339`,
+				theme_color: `#0E2339`,
+				display: `minimal-ui`,
+				icon: `source/images/icon.png`,
+			},
+		},
+		{
+			resolve: "gatsby-theme-apollo-docs",
+			options: {
+				...themeOptions,
+				siteName: "WPGraphQL",
+				menuTitle: "WPGraphQL",
+				baseUrl: "https://docs.wpgraphql.com",
+				root: __dirname,
+				subtitle: "WPGraphQL",
+				description: "WPGraphQL documentation",
+				githubRepo: "wp-graphql/wp-graphql",
+				defaultVersion: 0.4,
+				trackingId: "UA-111783024-1",
+				twitterHandle: "wpgraphql",
+				spectrumHandle: "wpgraphql",
+				algoliaApiKey: "bbd3b8557e78cdf3e0a73b5520f7f7ba",
+				algoliaIndexName: "wp_posts",
+				youtubeUrl:
+					"https://www.youtube.com/channel/UCwav5UKLaEufn0mtvaFAkYw",
+				logoLink: "https://docs.wpgraphql.com",
+				navConfig: {
+					"wpgraphql.com": {
+						url: "https://www.wpgraphql.com",
+						description: "The WPGraphQL homepage",
+					},
+					"WPGraphQL for ACF": {
+						url: "https://www.wpgraphql.com/acf/",
+						description: "WPGraphQL for Advanced Custom Fields",
+					},
+				},
+				footerNavConfig: {
+					Blog: {
+						href: "https://www.wpgraphql.com/blog/",
+						target: "_blank",
+						rel: "noopener noreferrer",
+					},
+					Contribute: {
+						href: "/guides/contributing",
+					},
+				},
+				sidebarCategories: {
+					null: ["index"],
+					"Getting Started": [
+						"getting-started/install-and-activate",
+						"getting-started/interacting-with-wpgraphql",
+						"getting-started/intro-to-graphql",
+						"getting-started/posts",
+						"getting-started/pages",
+						"getting-started/custom-post-types",
+						"getting-started/categories-and-tags",
+						"getting-started/custom-taxonomies",
+						"getting-started/custom-fields-and-meta",
+						"getting-started/users",
+						"getting-started/comments",
+						"getting-started/settings",
+						"getting-started/menus",
+						"getting-started/plugins",
+						"getting-started/themes",
+					],
+					Extending: [
+						"extending/types",
+						"extending/fields",
+						"extending/connections",
+						"extending/mutations",
+						"extending/interfaces",
+						"extending/resolvers",
+						"extending/hooks-and-filters",
+					],
+					Guides: [
+						"guides/about-wpgraphql",
+						"guides/the-graphql-query-language",
+						"guides/relay-spec",
+						"guides/connections",
+						"guides/anatomy-of-a-graphql-request",
+						"guides/upgrading",
+						"guides/authentication-and-authorization",
+						"guides/debugging",
+						"guides/deferred-resolvers",
+						"guides/query-batching",
+						"guides/contributing",
+						"guides/testing",
+					],
+					Extensions: [
+						"extensions/wpgraphql-for-advanced-custom-fields",
+						"extensions/wpgraphql-for-woocommerce",
+						"extensions/wpgraphql-tax-query",
+						"extensions/wpgraphql-meta-query",
+						"extensions/wpgraphql-insights",
+						"extensions/wpgraphql-dad-jokes",
+						"extensions/wpgraphql-jwt-authentication",
+						"extensions/wpgraphiql",
+						"extensions/wpgraphql-content-blocks",
+						"extensions/wpgraphql-gutenberg",
+					],
+				},
+			},
+		},
+	],
 }
