@@ -3,15 +3,15 @@ title: Interacting with WPGraphQL
 description: Learn how to interact with the WPGraphQL API
 ---
 
-import GraphiQL from "../components/GraphiQL"
-import Note from "../components/Note"
+import GraphiQL from '../components/GraphiQL'
+import Note from '../components/Note'
 
 On this page, you will find details on the various ways you can interact with your WPGraphQL API.
 
 <Note title="Understanding GraphQL Queries" type="warning">
-	On this page you will see examples of GraphQL queries. Don't worry if it looks
-	foreign right now. We'll go over what it all means in the{" "}
-	<a href="/getting-started/intro-to-graphql">Intro to GraphQL Guide</a>
+  On this page you will see examples of GraphQL queries. Don't worry if it looks
+  foreign right now. We'll go over what it all means in the{' '}
+  <a href="/getting-started/intro-to-graphql">Intro to GraphQL Guide</a>
 </Note>
 
 ## GraphQL IDEs and Tools
@@ -28,32 +28,32 @@ Below is an example of an _interactive_ embedded version of GraphiQL.
 Some instances will even have a Documentation explorer, so you can explore all the possibilities that
 exist in the Schema.
 
--   Go ahead, click the play button to execute the query against a **_live_** WPGraphQL API!
--   Next, click the `< Docs` at the top right to explore the docs and search around to see what's available.
+- Go ahead, click the play button to execute the query against a **_live_** WPGraphQL API!
+- Next, click the `< Docs` at the top right to explore the docs and search around to see what's available.
 
 </Note>
 
 <GraphiQL
-	query="
+  query="
     {
       generalSettings {
         url
       }
     }
     "
-	withDocs={true}
-	showJoyride={true}
+  withDocs={true}
+  showJoyride={true}
 />
 
 **Below is a non-comprehensive list of helpful tools to interact with your WPGraphQL API:**
 
--   [WPGraphiQL](https://github.com/wp-graphql/wp-graphiql) – GraphQL IDE right in your WordPress dashboard
--   [GraphQL Playground](https://github.com/graphcool/graphql-playground) – GraphQL IDE that supports multi-column schema docs, tabs, query history, configuration of HTTP headers and GraphQL Subscriptions.
--   [GraphiQL.app](https://github.com/skevy/graphiql-app) – A light, Electron-based wrapper around GraphiQL
--   [GraphQL Network](https://github.com/Ghirro/graphql-network) – A chrome dev-tools extension for debugging GraphQL network requests.
--   [GraphQL IDE](https://github.com/redound/graphql-ide) – An extensive IDE for exploring GraphQL API’s
--   [Altair GraphQL Client](https://github.com/imolorhe/altair) – A beautiful feature-rich GraphQL Client for all platforms
--   [Insomnia](https://insomnia.rest/) – An full-featured API client with first-party GraphQL query editor
+- [WPGraphiQL](https://github.com/wp-graphql/wp-graphiql) – GraphQL IDE right in your WordPress dashboard
+- [GraphQL Playground](https://github.com/graphcool/graphql-playground) – GraphQL IDE that supports multi-column schema docs, tabs, query history, configuration of HTTP headers and GraphQL Subscriptions.
+- [GraphiQL.app](https://github.com/skevy/graphiql-app) – A light, Electron-based wrapper around GraphiQL
+- [GraphQL Network](https://github.com/Ghirro/graphql-network) – A chrome dev-tools extension for debugging GraphQL network requests.
+- [GraphQL IDE](https://github.com/redound/graphql-ide) – An extensive IDE for exploring GraphQL API’s
+- [Altair GraphQL Client](https://github.com/imolorhe/altair) – A beautiful feature-rich GraphQL Client for all platforms
+- [Insomnia](https://insomnia.rest/) – An full-featured API client with first-party GraphQL query editor
 
 <Note type="info">
 Feel free to use any of the tools mentioned, explore and discover others that aren’t mentioned, or even build your own!
@@ -71,14 +71,14 @@ HTTP Post request specifying at minimum a `query` as part of the request.
 
 When making an HTTP request to a WPGraphQL server, a few things need to be included in the request:
 
--   **Content-Type header:** The Content-Type should be set to `application/json` in the Headers of
-    the request.
--   **Method:** The method of the request should be set to `POST`
--   **Body:** The body of the request should contain the following:
-    -   **query (required):** The string for the query (or mutation) to execute
-    -   **variables (optional):** JSON object of variables for use in the query
-    -   **operationName (optional):** The name of the operation to use for the response if multiple
-        operations were sent in the query string
+- **Content-Type header:** The Content-Type should be set to `application/json` in the Headers of
+  the request.
+- **Method:** The method of the request should be set to `POST`
+- **Body:** The body of the request should contain the following:
+  - **query (required):** The string for the query (or mutation) to execute
+  - **variables (optional):** JSON object of variables for use in the query
+  - **operationName (optional):** The name of the operation to use for the response if multiple
+    operations were sent in the query string
 
 ### Browser Console
 
@@ -89,23 +89,23 @@ You can open up Chrome Dev Tools and paste the following into your console to fe
 WPGraphQL. (_Of course, change the URL to the API you want to fetch from._)
 
 ```javascript
-fetch("https://www.wpgraphql.com/graphql", {
-	method: "POST",
-	headers: {
-		"Content-Type": "application/json",
-	},
-	body: JSON.stringify({
-		query: `
+fetch('https://www.wpgraphql.com/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    query: `
         {
             generalSettings {
                 url
             }
         }
     `,
-	}),
+  }),
 })
-	.then(res => res.json())
-	.then(res => console.log(res.data))
+  .then(res => res.json())
+  .then(res => console.log(res.data))
 ```
 
 ![GIF showing an example of fetching GraphQL data using fetch in the browser console](../../images/fetch-graphql-from-browser-console.gif)
@@ -179,12 +179,12 @@ one of the best options for managing the fetching and caching of GraphQL data.
 
 Apollo client supports many of the popular JavaScript and Native frameworks such as:
 
--   **React:** [https://www.apollographql.com/docs/react/](https://www.apollographql.com/docs/react/)
--   **Angular:** [https://www.apollographql.com/docs/angular/](https://www.apollographql.com/docs/angular/)
--   **Vue:** [https://github.com/akryum/vue-apollo](https://github.com/akryum/vue-apollo)
--   **Native iOS:** [https://www.apollographql.com/docs/ios](https://www.apollographql.com/docs/ios)
--   **Native Android:** [https://github.com/apollographql/apollo-android](https://github.com/apollographql/apollo-android)
--   **Scala:** [https://www.apollographql.com/docs/scalajs](https://www.apollographql.com/docs/scalajs)
+- **React:** [https://www.apollographql.com/docs/react/](https://www.apollographql.com/docs/react/)
+- **Angular:** [https://www.apollographql.com/docs/angular/](https://www.apollographql.com/docs/angular/)
+- **Vue:** [https://github.com/akryum/vue-apollo](https://github.com/akryum/vue-apollo)
+- **Native iOS:** [https://www.apollographql.com/docs/ios](https://www.apollographql.com/docs/ios)
+- **Native Android:** [https://github.com/apollographql/apollo-android](https://github.com/apollographql/apollo-android)
+- **Scala:** [https://www.apollographql.com/docs/scalajs](https://www.apollographql.com/docs/scalajs)
 
 ## GraphQL in WordPress PHP
 
