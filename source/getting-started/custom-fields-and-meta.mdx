@@ -3,6 +3,8 @@ title: Custom Fields and Meta
 description: Learn about how to expose Custom Fields and Meta in the WPGraphQL Schema
 ---
 
+import Note from '../../components/Note'
+
 WPGraphQL exposes an API to [register fields](/extending/fields) to any Type in the Schema.
 We can use this API to register fields that expose custom fields, such as Post Meta, Term Meta, etc.
 
@@ -39,13 +41,13 @@ if there is no color returned, let’s just default to blue.
 
 ```graphql
 {
-	posts {
-		nodes {
-			id
-			link
-			color
-		}
-	}
+  posts {
+    nodes {
+      id
+      link
+      color
+    }
+  }
 }
 ```
 
@@ -88,14 +90,14 @@ Now, we can query the color field on ANY exposed Custom Post Type in our Schema.
 
 ```graphql
 {
-	documents {
-		nodes {
-			id
-			title
-			link
-			color
-		}
-	}
+  documents {
+    nodes {
+      id
+      title
+      link
+      color
+    }
+  }
 }
 ```
 
@@ -151,7 +153,7 @@ even connect to any other database, or custom tables, static data, .csv files, e
 is really quite expansive.
 
 <Note>
-	Take a look at the{" "}
-	<a href="/extensions/wpgraphql-dad-jokes/">WPGraphQL Dad Jokes</a> extension for
-	an example of registering fields that resolve data from an external API.
+  Take a look at the{' '}
+  <a href="/extensions/wpgraphql-dad-jokes/">WPGraphQL Dad Jokes</a> extension
+  for an example of registering fields that resolve data from an external API.
 </Note>

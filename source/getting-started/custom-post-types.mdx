@@ -3,11 +3,13 @@ title: Custom Post Types
 description: Learn about how to register and interact with Custom Post Types using WPGraphQL
 ---
 
+import Note from '../../components/Note'
+
 Exposing Custom Post Types to GraphQL requires just 3 fields to be added to the Post Type registration.
 
--   **show_in_graphql**: true or false
--   **graphql_single_name**: camel case string with no punctuation or spaces
--   **graphql_plural_name**: camel case string with no punctuation or spaces
+- **show_in_graphql**: true or false
+- **graphql_single_name**: camel case string with no punctuation or spaces
+- **graphql_plural_name**: camel case string with no punctuation or spaces
 
 ## Register a new Post Type
 
@@ -66,11 +68,11 @@ queries</a> such as fragments, arguments, operation type and operation name.
 
 ```graphql
 query GetDocument {
-	documentBy(uri: "/getting-started/custom-post-types-taxonomies/") {
-		title(format: RAW)
-		link
-		slug
-	}
+  documentBy(uri: "/getting-started/custom-post-types-taxonomies/") {
+    title(format: RAW)
+    link
+    slug
+  }
 }
 ```
 
@@ -87,26 +89,26 @@ queries</a> such as fragments, arguments, operation type and operation name.
 
 ```graphql
 query GetDocuments {
-	documents {
-		edges {
-			node {
-				...DocumentFields
-				childDocuments {
-					edges {
-						node {
-							...DocumentFields
-						}
-					}
-				}
-			}
-		}
-	}
+  documents {
+    edges {
+      node {
+        ...DocumentFields
+        childDocuments {
+          edges {
+            node {
+              ...DocumentFields
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 fragment DocumentFields on Document {
-	title(format: RAW)
-	slug
-	link
-	content
+  title(format: RAW)
+  slug
+  link
+  content
 }
 ```

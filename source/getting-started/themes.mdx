@@ -3,7 +3,7 @@ title: Themes
 description: Learn about how to interact with Themes using WPGraphQL
 ---
 
-import GraphiQL from "../components/GraphiQL"
+import GraphiQL from '../../components/GraphiQL'
 
 Themes are a core tenant in every WordPress site. WPGraphQL exposes native ways to interact with
 Themes via GraphQL.
@@ -13,7 +13,7 @@ Themes via GraphQL.
 Query all themes on the site:
 
 <GraphiQL
-	query="{
+  query="{
 	themes {
     nodes {
       id
@@ -34,7 +34,7 @@ Query all themes on the site:
 Query a specific theme by ID by replacing the ID below with an ID from the response above to query a specific theme:
 
 <GraphiQL
-	query="{
+  query="{
   theme(id: 1) {
     id
     author
@@ -52,8 +52,8 @@ Query a specific theme by ID by replacing the ID below with an ID from the respo
 
 **also see:**
 
--   [https://github.com/wp-graphql/wp-graphql/issues/606](https://github.com/wp-graphql/wp-graphql/issues/606)
--   [https://github.com/wp-graphql/wp-graphql/pull/571](https://github.com/wp-graphql/wp-graphql/pull/571)
+- [https://github.com/wp-graphql/wp-graphql/issues/606](https://github.com/wp-graphql/wp-graphql/issues/606)
+- [https://github.com/wp-graphql/wp-graphql/pull/571](https://github.com/wp-graphql/wp-graphql/pull/571)
 
 ## Mutations
 

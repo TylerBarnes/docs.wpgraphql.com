@@ -3,6 +3,8 @@ title: Debugging
 description: Tips and tricks on how to debug when working with WPGraphQL
 ---
 
+import Note from '../../components/Note'
+
 Debugging GraphQL can be intimidating. Because GraphQL provides a single entry point to all kinds
 of data, it’s hard to know exactly how to begin debugging, as it seems like the kind of thing where
 either everything is working or nothing is working.
@@ -15,16 +17,15 @@ When debugging WPGraphQL, in your wp-config.php you can add the following
 `define( 'GRAPHQL_DEBUG', true );` and in some cases you will get more helpful debug messages
 returned with the response to your GraphQL requests.
 
-
 ## WPGraphiQL IDE
 
 One of the best ways to debug your WPGraphQL API (for now) is by using the [WPGraphiQL IDE](https://wpgraphql.wpengine.com/docs/extensions/wpgraphiql/)
 and the network tab in your browser (I prefer Chrome).
 
 <Note>
-<strong>Note:</strong> Any time you register new fields, or modify your Schema in any way, it’s best
-to refresh the WPGraphiQL page in your WordPress dashboard to ensure your Schema is fresh with any
-changes.
+  <strong>Note:</strong> Any time you register new fields, or modify your Schema
+  in any way, it’s best to refresh the WPGraphiQL page in your WordPress
+  dashboard to ensure your Schema is fresh with any changes.
 </Note>
 
 Below are some situations you may come across and some tips on how to debug them.
@@ -49,6 +50,7 @@ add_action( 'graphql_register_types', function() {
 ```
 
 #### Valid Field
+
 ```php
 add_action( 'graphql_register_types', function() {
   register_graphql_field( 'Post', 'validField', [
@@ -69,11 +71,13 @@ WPGraphQL Insights also returns trace information about each resolver so you can
 resolvers are the slowest, which enables you to pinpoint bottlenecks.
 
 <Note>
-<strong>NOTE:</strong> The trace data returned by WPGraphQL Insights is compatible with the trace
-tracking provided by <a href="https://www.apollographql.com/engine/">Apollo Engine</a>.
+  <strong>NOTE:</strong> The trace data returned by WPGraphQL Insights is
+  compatible with the trace tracking provided by{' '}
+  <a href="https://www.apollographql.com/engine/">Apollo Engine</a>.
 </Note>
 
 ## Resolver not executing properly
+
 If you’re experiencing a field resolving differently then expected, one way to debug would be to
 `var_dump()` within the resolver, and inspect with WPGraphiQL and your network tab.
 

@@ -3,8 +3,8 @@ title: Intro to GraphQL
 description: Intro to the GraphQL Query language
 ---
 
-import Note from "../components/Note"
-import GraphiQL from "../components/GraphiQL"
+import Note from '../../components/Note'
+import GraphiQL from '../../components/GraphiQL'
 
 On this page, we'll look at some of the features of the GraphQL specification and Query Language.
 After reading this page, you should have a basic understanding of how to interact with a WPGraphQL
@@ -12,9 +12,9 @@ server.
 
 **In Depth Guides**
 
--   For more in-depth information about the GraphQL Spec, check out
-    [https://graphql.org](https://graphql.org)
--   For more in-depth about WPGraphQL, read our more detailed [About WPGraphQL guide](/guides/about-wpgraphql)
+- For more in-depth information about the GraphQL Spec, check out
+  [https://graphql.org](https://graphql.org)
+- For more in-depth about WPGraphQL, read our more detailed [About WPGraphQL guide](/guides/about-wpgraphql)
 
 ## Exploring the Schema
 
@@ -22,26 +22,26 @@ Before we jump in to Querying the Schema, it's important to know _how_ to even f
 by exploring the GraphQL Schema.
 
 <Note title="Documentation Explorer" type="info">
-	One of the easiest ways to explore what is available to be queried, is by
-	exploring the Schema using the Documentation explorer in GraphiQL.
+  One of the easiest ways to explore what is available to be queried, is by
+  exploring the Schema using the Documentation explorer in GraphiQL.
 </Note>
 
 <GraphiQL
-	query="
+  query="
     {
      generalSettings {
        url
      }
     }
     "
-	withDocs={true}
-	showJoyride={"docsOnly"}
+  withDocs={true}
+  showJoyride={'docsOnly'}
 />
 
 <Note type="warning">
-	<strong>Note:</strong> Not all instances of the interactive GraphiQL editor in
-	these docs will have the Documentation explorer available to keep distractions to
-	a minimum as you work through examples.
+  <strong>Note:</strong> Not all instances of the interactive GraphiQL editor in
+  these docs will have the Documentation explorer available to keep distractions
+  to a minimum as you work through examples.
 </Note>
 
 ## Queries
@@ -55,9 +55,9 @@ asks for `generalSettings`, and on `generalSettings`, it's asking for the field 
 
 ```graphql
 {
-	generalSettings {
-		url
-	}
+  generalSettings {
+    url
+  }
 }
 ```
 
@@ -65,11 +65,11 @@ The response to this query would look like:
 
 ```json
 {
-	"data": {
-		"generalSettings": {
-			"url": "https://www.wpgraphql.com"
-		}
-	}
+  "data": {
+    "generalSettings": {
+      "url": "https://www.wpgraphql.com"
+    }
+  }
 }
 ```
 
@@ -87,32 +87,32 @@ Let's take a look at the same query in an interactive GraphQL IDE.
 **Press the play button to execute the query:**
 
 <GraphiQL
-	query="
+  query="
     {
      generalSettings {
        url
      }
     }
     "
-	showJoyride={false}
-	withDocs={false}
+  showJoyride={false}
+  withDocs={false}
 />
 
 ### Built-in Queries
 
 WPGraphQL comes with many built-in queries for interacting with data from WordPress including:
 
--   [Posts](/getting-started/posts/#queries)
--   [Pages](/getting-started/pages/#queries)
--   [Custom Post Types](/getting-started/custom-post-types/#queries)
--   [Categories and Tags](/getting-started/categories-and-tags/#queries)
--   [Custom Taxonomies](/getting-started/custom-taxonomies/#queries)
--   [Comments](/getting-started/comments/#queries)
--   [Users](/getting-started/users/#queries)
--   [Menus](/getting-started/menus/#queries)
--   [Plugins](/getting-started/plugins/#queries)
--   [Themes](/getting-started/themes/#queries)
--   [Settings](/getting-started/settings/#queries)
+- [Posts](/getting-started/posts/#queries)
+- [Pages](/getting-started/pages/#queries)
+- [Custom Post Types](/getting-started/custom-post-types/#queries)
+- [Categories and Tags](/getting-started/categories-and-tags/#queries)
+- [Custom Taxonomies](/getting-started/custom-taxonomies/#queries)
+- [Comments](/getting-started/comments/#queries)
+- [Users](/getting-started/users/#queries)
+- [Menus](/getting-started/menus/#queries)
+- [Plugins](/getting-started/plugins/#queries)
+- [Themes](/getting-started/themes/#queries)
+- [Settings](/getting-started/settings/#queries)
 
 ### Self-documenting Schema
 
@@ -127,7 +127,7 @@ The Schema is queryable, meaning that it's not just one static thing. You can qu
 an interactive thing. Here's an example:
 
 <GraphiQL
-	query="
+  query="
   {
     __schema {
       types {
@@ -168,7 +168,7 @@ Then we can select which fields to execute as part of the mutation.
 In this case, we select the `increaseCount` field, and we pass it an argument `count` with a value of `2`.
 
 <GraphiQL
-	query="
+  query="
   mutation {
     increaseCount( count: 2 )
   }
@@ -185,17 +185,17 @@ one number higher.
 
 WPGraphQL provides CRUD mutations for the core WordPress data types:
 
--   Posts
--   Pages
--   Custom Post Types
--   Taxonomy Terms
--   Custom Taxonomies
--   Comments
--   Users
--   MenuItems
--   Plugins
--   Themes
--   Settings
+- Posts
+- Pages
+- Custom Post Types
+- Taxonomy Terms
+- Custom Taxonomies
+- Comments
+- Users
+- MenuItems
+- Plugins
+- Themes
+- Settings
 
 #### Authentication and Authorization
 
@@ -207,13 +207,13 @@ Here's an example of a mutation that will first check to see if you're allowed t
 
 ```graphql
 mutation {
-	createPost(input: { clientMutationId: "CreatePost", title: "New Post" }) {
-		post {
-			id
-			title
-			date
-		}
-	}
+  createPost(input: { clientMutationId: "CreatePost", title: "New Post" }) {
+    post {
+      id
+      title
+      date
+    }
+  }
 }
 ```
 
@@ -221,22 +221,22 @@ In response, we'll see the following error:
 
 ```json
 {
-	"errors": [
-		{
-			"message": "Sorry, you are not allowed to create posts",
-			"category": "user",
-			"locations": [
-				{
-					"line": 2,
-					"column": 3
-				}
-			],
-			"path": ["createPost"]
-		}
-	],
-	"data": {
-		"createPost": null
-	}
+  "errors": [
+    {
+      "message": "Sorry, you are not allowed to create posts",
+      "category": "user",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ],
+      "path": ["createPost"]
+    }
+  ],
+  "data": {
+    "createPost": null
+  }
 }
 ```
 
@@ -246,7 +246,7 @@ without verifying that the user making the request has proper capabilities to cr
 **Go ahead and try and execute the Mutation:**
 
 <GraphiQL
-	query='
+  query='
   mutation {
     createPost( input: {
       clientMutationId: "CreatePost"

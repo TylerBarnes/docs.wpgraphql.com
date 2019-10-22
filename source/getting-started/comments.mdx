@@ -3,6 +3,9 @@ title: Comments
 description: Learn about how to interact with Comments using WPGraphQL
 ---
 
+import Note from '../../components/Note'
+import GraphiQL from '../../components/GraphiQL'
+
 Comments are a core part of WordPress, and they are native in the WPGraphQL Schema. WPGraphQL
 provides the ability to query and mutate comments.
 
@@ -21,45 +24,45 @@ comment children (replies).
 
 ```graphql
 {
-	posts(first: 100) {
-		nodes {
-			id
-			title
-			comments {
-				nodes {
-					...CommentFields
-					replies: children {
-						nodes {
-							...CommentFields
-							replies: children {
-								nodes {
-									...CommentFields
-									replies: children {
-										nodes {
-											...CommentFields
-											replies: children {
-												nodes {
-													...CommentFields
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+  posts(first: 100) {
+    nodes {
+      id
+      title
+      comments {
+        nodes {
+          ...CommentFields
+          replies: children {
+            nodes {
+              ...CommentFields
+              replies: children {
+                nodes {
+                  ...CommentFields
+                  replies: children {
+                    nodes {
+                      ...CommentFields
+                      replies: children {
+                        nodes {
+                          ...CommentFields
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 fragment CommentFields on Comment {
-	id
-	date
-	type
-	approved
-	content
+  id
+  date
+  type
+  approved
+  content
 }
 ```
 
@@ -85,33 +88,33 @@ This could be done like so:
 
 ```graphql
 query GET_COMMENTS_FOR_POST {
-	comments(where: { contentId: 1 }) {
-		nodes {
-			...CommentFields
-			replies: children {
-				nodes {
-					...CommentFields
-					replies: children {
-						...CommentFields
-						replies: children {
-							...CommentFields
-							replies: children {
-								...CommentFields
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+  comments(where: { contentId: 1 }) {
+    nodes {
+      ...CommentFields
+      replies: children {
+        nodes {
+          ...CommentFields
+          replies: children {
+            ...CommentFields
+            replies: children {
+              ...CommentFields
+              replies: children {
+                ...CommentFields
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 fragment CommentFields on Comment {
-	id
-	date
-	type
-	approved
-	content
+  id
+  date
+  type
+  approved
+  content
 }
 ```
 
@@ -122,7 +125,7 @@ fragment CommentFields on Comment {
 This is an example of a mutation to create a Comment.
 
 <GraphiQL
-	query="
+  query="
   mutation CREATE_COMMENT($input:CreateCommentInput!){
     createComment(input:$input) {
       comment {
@@ -137,13 +140,13 @@ This is an example of a mutation to create a Comment.
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "CreateComment",
-			content: "This is my first comment",
-			author: "Radomir",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'CreateComment',
+      content: 'This is my first comment',
+      author: 'Radomir',
+    },
+  }}
 />
 
 <Note title="ID Inputs">

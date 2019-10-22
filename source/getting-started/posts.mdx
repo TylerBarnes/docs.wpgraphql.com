@@ -3,18 +3,18 @@ title: Posts
 description: Learn about how to interact with Posts using WPGraphQL
 ---
 
-import Note from "../components/Note"
-import GraphiQL from "../components/GraphiQL"
-import { Button } from "antd"
+import Note from '../../components/Note'
+import GraphiQL from '../../components/GraphiQL'
+import { Button } from 'antd'
 
 Posts are at the heart of WordPress. On this page, we'll take a look at various ways to interact
 with Posts using WPGraphQL.
 
 <Note type="warning">
-	If any of the terminology or semantics of the GraphQL queries/mutations on this
-	page are confusing, check out the{" "}
-	<a href="/getting-started/intro-to-graphql">Intro to GraphQL Guide</a> to get
-	more familiar with the basics.
+  If any of the terminology or semantics of the GraphQL queries/mutations on
+  this page are confusing, check out the{' '}
+  <a href="/getting-started/intro-to-graphql">Intro to GraphQL Guide</a> to get
+  more familiar with the basics.
 </Note>
 
 ## Queries
@@ -27,7 +27,7 @@ or individual posts. Below, we'll look at some common examples for querying for 
 In this example, we query a list of Post nodes. By default, WPGraphQL will return 10 items.
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS {
       posts {
         edges {
@@ -61,16 +61,16 @@ on the `posts` field to declare how many items we want.
 Here we're using the `first` argument to declare that we want the first 5 posts.
 
 <Note title="Using Variables with Arguments" type="info">
-	We pass the number as a variable so that our query can be dynamic without
-	changing the actual query string.{" "}
-	<a href="/docs/getting-started/intro-to-graphql/">
-		Learn more about using variables
-	</a>
-	.
+  We pass the number as a variable so that our query can be dynamic without
+  changing the actual query string.{' '}
+  <a href="/docs/getting-started/intro-to-graphql/">
+    Learn more about using variables
+  </a>
+  .
 </Note>
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS ($first: Int) {
       posts( first: $first ) {
         edges {
@@ -83,15 +83,15 @@ Here we're using the `first` argument to declare that we want the first 5 posts.
       }
     }
     "
-	variables={{
-		first: 5,
-	}}
+  variables={{
+    first: 5,
+  }}
 />
 
 You can adjust the number of items as well. Here we'll ask for just 1 Post:
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS ($first: Int) {
       posts( first: $first ) {
         edges {
@@ -104,9 +104,9 @@ You can adjust the number of items as well. Here we'll ask for just 1 Post:
       }
     }
     "
-	variables={{
-		first: 1,
-	}}
+  variables={{
+    first: 1,
+  }}
 />
 
 ### whereArgs
@@ -121,11 +121,11 @@ available.
 Also, keep in mind that the _entire_ WPGraphQL Schema is filterable should you need to extend the
 Schema and provide custom arguments for your applications needs.
 
--   **Here's an example of using the `where` argument to pass in a `DateQuery` to specify a specific
-    date for which to grab posts for**
+- **Here's an example of using the `where` argument to pass in a `DateQuery` to specify a specific
+  date for which to grab posts for**
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS( $first: Int $dateQuery: DateQueryInput ) {
       posts( first: $first where: { dateQuery: $dateQuery }) {
         edges {
@@ -138,21 +138,21 @@ Schema and provide custom arguments for your applications needs.
       }
     }
     "
-	withDocs={true}
-	variables={{
-		first: 1,
-		dateQuery: {
-			day: 10,
-			month: 1,
-			year: 2019,
-		},
-	}}
+  withDocs={true}
+  variables={{
+    first: 1,
+    dateQuery: {
+      day: 10,
+      month: 1,
+      year: 2019,
+    },
+  }}
 />
 
--   **Here's an example of using the `where` argument to find a post with a specific title:**
+- **Here's an example of using the `where` argument to find a post with a specific title:**
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS($first: Int $title: String) {
       posts(first: $first where: { title: $title }) {
         edges {
@@ -165,12 +165,12 @@ Schema and provide custom arguments for your applications needs.
       }
     }
     "
-	withDocs={false}
-	variables={{
-		first: 1,
-		title:
-			"Build an App Using React and the GraphQL Plugin for WordPress in ~15mins",
-	}}
+  withDocs={false}
+  variables={{
+    first: 1,
+    title:
+      'Build an App Using React and the GraphQL Plugin for WordPress in ~15mins',
+  }}
 />
 
 ### Pagination
@@ -180,19 +180,19 @@ Schema exposes some helpful fields we can ask for to know if there are more item
 
 Fields that are helpful for knowing if there are more items to paginate:
 
--   **pageInfo.hasNextPage:** Whether there are more items going forward
--   **pageInfo.hasPreviousPage:** Whether there are more items going backward
--   **pageInfo.endCursor:** The cursor for the last item in the list
--   **pageInfo.startCursor:** The cursor for the first item in the list
+- **pageInfo.hasNextPage:** Whether there are more items going forward
+- **pageInfo.hasPreviousPage:** Whether there are more items going backward
+- **pageInfo.endCursor:** The cursor for the last item in the list
+- **pageInfo.startCursor:** The cursor for the first item in the list
 
 The arguments used for pagination are:
 
--   **first:** The number of items to fetch. To be used along with `after` for forward pagination.
--   **after:** The cursor to reference where to fetch from. To be used along with `first` for forward
-    pagination.
--   **last:** The number of items to fetch. To be used along with `before` for backward pagination.
--   **before:** The cursor to reference where to fetch from. To be used along with `last` for backward
-    pagination.
+- **first:** The number of items to fetch. To be used along with `after` for forward pagination.
+- **after:** The cursor to reference where to fetch from. To be used along with `first` for forward
+  pagination.
+- **last:** The number of items to fetch. To be used along with `before` for backward pagination.
+- **before:** The cursor to reference where to fetch from. To be used along with `last` for backward
+  pagination.
 
 #### pageInfo
 
@@ -209,7 +209,7 @@ The cursor can then be used as an argument in a follow-up query, to ask for post
 in the dataset.
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS {
       posts {
         pageInfo {
@@ -235,7 +235,7 @@ We can use the `first` argument to declare how many items we want from the "fron
 In this case, we're telling WPGraphQL we want the first 5 most recent posts.
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS($first: Int $after: String) {
       posts(first: $first after: $after) {
         pageInfo {
@@ -253,10 +253,10 @@ In this case, we're telling WPGraphQL we want the first 5 most recent posts.
       }
     }
     "
-	variables={{
-		first: 5,
-		after: null,
-	}}
+  variables={{
+    first: 5,
+    after: null,
+  }}
 />
 
 In the response, we see that `hasNextPage` responds with `true`, meaning there are more posts, and
@@ -271,7 +271,7 @@ posts, there's a good chance we'll want to ask for the _first_ `10` posts _after
 that list.
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS($first: Int $after: String) {
       posts(first: $first after: $after) {
         pageInfo {
@@ -289,10 +289,10 @@ that list.
       }
     }
     "
-	variables={{
-		first: 5,
-		after: "YXJyYXljb25uZWN0aW9uOjUx",
-	}}
+  variables={{
+    first: 5,
+    after: 'YXJyYXljb25uZWN0aW9uOjUx',
+  }}
 />
 
 #### last
@@ -304,7 +304,7 @@ At the bottom of the list will be the oldest item in the dataset. The top item i
 the newest of the 5 displayed (because we're going backward here).
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS($last: Int $before: String){
       posts(last: $last before: $before) {
         pageInfo {
@@ -322,10 +322,10 @@ the newest of the 5 displayed (because we're going backward here).
       }
     }
     "
-	variables={{
-		last: 5,
-		before: null,
-	}}
+  variables={{
+    last: 5,
+    before: null,
+  }}
 />
 
 So, we can see that `hasPreviousPage` is set to true, which means we have more items `before` this.
@@ -342,7 +342,7 @@ So, what we're saying is that we want `5` more items before the `startCursor` in
 As long as `hasPreviousPage` returns true, that means we have more data that we can paginate through.
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS($last: Int $before: String) {
       posts(last: $last before: $before) {
         pageInfo {
@@ -360,10 +360,10 @@ As long as `hasPreviousPage` returns true, that means we have more data that we 
       }
     }
     "
-	variables={{
-		last: 5,
-		before: "YXJyYXljb25uZWN0aW9uOjQyNw==",
-	}}
+  variables={{
+    last: 5,
+    before: 'YXJyYXljb25uZWN0aW9uOjQyNw==',
+  }}
 />
 
 ### Post
@@ -371,7 +371,7 @@ As long as `hasPreviousPage` returns true, that means we have more data that we 
 If we know the ID of a Post, we can query for the post individually like so:
 
 <GraphiQL
-	query="
+  query="
   query GET_POST( $id: ID! ) {
     post( id: $id ) {
       id
@@ -382,9 +382,9 @@ If we know the ID of a Post, we can query for the post individually like so:
     }
   }
   "
-	variables={{
-		id: "cG9zdDo1MQ==",
-	}}
+  variables={{
+    id: 'cG9zdDo1MQ==',
+  }}
 />
 
 ### PostBy
@@ -395,7 +395,7 @@ ways to get an individual Post, but using the `postBy` query.
 **Here's an example of getting a post by it's URI.**
 
 <GraphiQL
-	query="
+  query="
   query GET_POST( $uri: String ) {
     postBy( uri: $uri ) {
       id
@@ -406,15 +406,15 @@ ways to get an individual Post, but using the `postBy` query.
     }
   }
   "
-	variables={{
-		uri: "wpgraphql-featured-on-freecodecamp",
-	}}
+  variables={{
+    uri: 'wpgraphql-featured-on-freecodecamp',
+  }}
 />
 
 **Here's an example of getting a post by it's database ID.**
 
 <GraphiQL
-	query="
+  query="
   query GET_POST( $postId: Int ) {
     postBy( postId: $postId ) {
       id
@@ -425,9 +425,9 @@ ways to get an individual Post, but using the `postBy` query.
     }
   }
   "
-	variables={{
-		postId: 51,
-	}}
+  variables={{
+    postId: 51,
+  }}
 />
 
 ## Mutations
@@ -459,7 +459,7 @@ input fields will need to be required, but any of the other fields are optional,
 the specified Type defined in the Schema.
 
 <GraphiQL
-	query="
+  query="
   mutation CREATE_POST( $input:CreatePostInput! ){
     createPost( input: $input ) {
       post {
@@ -471,12 +471,12 @@ the specified Type defined in the Schema.
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "CreatePost",
-			title: "New Post Title",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'CreatePost',
+      title: 'New Post Title',
+    },
+  }}
 />
 
 ### Update Post
@@ -484,7 +484,7 @@ the specified Type defined in the Schema.
 Below is an example mutation to update a post. For this, we _must_ know the ID of the Post.
 
 <GraphiQL
-	query="
+  query="
   mutation UPDATE_POST( $input:UpdatePostInput! ){
     updatePost( input: $input ) {
       post {
@@ -496,13 +496,13 @@ Below is an example mutation to update a post. For this, we _must_ know the ID o
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "UpdatePost",
-			id: "cG9zdDo1MQ==",
-			title: "New Title for the Post",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'UpdatePost',
+      id: 'cG9zdDo1MQ==',
+      title: 'New Title for the Post',
+    },
+  }}
 />
 
 ### Delete Post
@@ -510,7 +510,7 @@ Below is an example mutation to update a post. For this, we _must_ know the ID o
 Below is an example mutation to delete a post. For this, we _must_ know the ID of the Post.
 
 <GraphiQL
-	query="
+  query="
   mutation DELETE_POST($input: DeletePostInput!) {
     deletePost(input: $input) {
       deletedId
@@ -520,10 +520,10 @@ Below is an example mutation to delete a post. For this, we _must_ know the ID o
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "DELETE_POST",
-			id: "cG9zdDo1MQ==",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'DELETE_POST',
+      id: 'cG9zdDo1MQ==',
+    },
+  }}
 />

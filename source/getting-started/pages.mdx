@@ -3,18 +3,18 @@ title: Pages
 description: Learn about how to interact with Pages using WPGraphQL
 ---
 
-import Note from "../components/Note"
-import GraphiQL from "../components/GraphiQL"
-import { Button } from "antd"
+import Note from '../../components/Note'
+import GraphiQL from '../../components/GraphiQL'
+import { Button } from 'antd'
 
 Pages are a core WordPress Post Type and are core to the WPGraphQL Schema. On this page, we'll take
 a look at various ways to interact with Pages using WPGraphQL.
 
 <Note type="warning">
-	If any of the terminology or semantics of the GraphQL queries/mutations on this
-	page are confusing, check out the{" "}
-	<a href="/getting-started/intro-to-graphql">Intro to GraphQL Guide</a> to get
-	more familiar with the basics.
+  If any of the terminology or semantics of the GraphQL queries/mutations on
+  this page are confusing, check out the{' '}
+  <a href="/getting-started/intro-to-graphql">Intro to GraphQL Guide</a> to get
+  more familiar with the basics.
 </Note>
 
 ## Queries
@@ -27,7 +27,7 @@ or an individual page. Below, we'll look at some common examples for querying fo
 In this example, we query a list of Page nodes. By default, WPGraphQL will return 10 items.
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES {
       pages {
         edges {
@@ -61,7 +61,7 @@ By default, querying for pages returns just the top level pages, and you can get
 the `childPages` field, like so:
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES {
       pages {
         edges {
@@ -91,16 +91,16 @@ on the `pages` field to declare how many items we want.
 Here we're using the `first` argument to declare that we want the first 5 pages.
 
 <Note title="Using Variables with Arguments" type="info">
-	We pass the number as a variable so that our query can be dynamic without
-	changing the actual query string.{" "}
-	<a href="/docs/getting-started/intro-to-graphql/">
-		Learn more about using variables
-	</a>
-	.
+  We pass the number as a variable so that our query can be dynamic without
+  changing the actual query string.{' '}
+  <a href="/docs/getting-started/intro-to-graphql/">
+    Learn more about using variables
+  </a>
+  .
 </Note>
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES ($first: Int) {
       pages( first: $first ) {
         edges {
@@ -113,15 +113,15 @@ Here we're using the `first` argument to declare that we want the first 5 pages.
       }
     }
     "
-	variables={{
-		first: 5,
-	}}
+  variables={{
+    first: 5,
+  }}
 />
 
 You can adjust the number of items as well. Here we'll ask for just 1 Page:
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGE ($first: Int) {
       pages( first: $first ) {
         edges {
@@ -134,9 +134,9 @@ You can adjust the number of items as well. Here we'll ask for just 1 Page:
       }
     }
     "
-	variables={{
-		first: 1,
-	}}
+  variables={{
+    first: 1,
+  }}
 />
 
 ### whereArgs
@@ -151,10 +151,10 @@ available.
 Also, keep in mind that the _entire_ WPGraphQL Schema is filterable should you need to extend the
 Schema and provide custom arguments for your applications needs.
 
--   **Here's an example of using the `where` argument to get a page with a specific title**
+- **Here's an example of using the `where` argument to get a page with a specific title**
 
 <GraphiQL
-	query="
+  query="
     query GET_POSTS($first: Int $where:RootQueryToPageConnectionWhereArgs!) {
       pages(first: $first, where: $where) {
         edges {
@@ -167,13 +167,13 @@ Schema and provide custom arguments for your applications needs.
       }
     }
     "
-	withDocs={true}
-	variables={{
-		first: 1,
-		where: {
-			title: "Community",
-		},
-	}}
+  withDocs={true}
+  variables={{
+    first: 1,
+    where: {
+      title: 'Community',
+    },
+  }}
 />
 
 ### Pagination
@@ -183,19 +183,19 @@ Schema exposes some helpful fields we can ask for to know if there are more item
 
 Fields that are helpful for knowing if there are more items to paginate:
 
--   **pageInfo.hasNextPage:** Whether there are more items going forward
--   **pageInfo.hasPreviousPage:** Whether there are more items going backward
--   **pageInfo.endCursor:** The cursor for the last item in the list
--   **pageInfo.startCursor:** The cursor for the first item in the list
+- **pageInfo.hasNextPage:** Whether there are more items going forward
+- **pageInfo.hasPreviousPage:** Whether there are more items going backward
+- **pageInfo.endCursor:** The cursor for the last item in the list
+- **pageInfo.startCursor:** The cursor for the first item in the list
 
 The arguments used for pagination are:
 
--   **first:** The number of items to fetch. To be used along with `after` for forward pagination.
--   **after:** The cursor to reference where to fetch from. To be used along with `first` for forward
-    pagination.
--   **last:** The number of items to fetch. To be used along with `before` for backward pagination.
--   **before:** The cursor to reference where to fetch from. To be used along with `last` for backward
-    pagination.
+- **first:** The number of items to fetch. To be used along with `after` for forward pagination.
+- **after:** The cursor to reference where to fetch from. To be used along with `first` for forward
+  pagination.
+- **last:** The number of items to fetch. To be used along with `before` for backward pagination.
+- **before:** The cursor to reference where to fetch from. To be used along with `last` for backward
+  pagination.
 
 #### pageInfo
 
@@ -212,7 +212,7 @@ The cursor can then be used as an argument in a follow-up query, to ask for page
 in the dataset.
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES {
       pages {
         pageInfo {
@@ -238,7 +238,7 @@ We can use the `first` argument to declare how many items we want from the "fron
 In this case, we're telling WPGraphQL we want the first 5 most recent pages.
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES($first: Int $after: String) {
       pages(first: $first after: $after) {
         pageInfo {
@@ -256,10 +256,10 @@ In this case, we're telling WPGraphQL we want the first 5 most recent pages.
       }
     }
     "
-	variables={{
-		first: 5,
-		after: null,
-	}}
+  variables={{
+    first: 5,
+    after: null,
+  }}
 />
 
 In the response, we see that `hasNextPage` responds with `true`, meaning there are more pages, and
@@ -274,7 +274,7 @@ pages, there's a good chance we'll want to follow-up and ask for the _first_ `10
 final post in that list.
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES($first: Int $after: String) {
       pages(first: $first after: $after) {
         pageInfo {
@@ -292,10 +292,10 @@ final post in that list.
       }
     }
     "
-	variables={{
-		first: 5,
-		after: "YXJyYXljb25uZWN0aW9uOjI=",
-	}}
+  variables={{
+    first: 5,
+    after: 'YXJyYXljb25uZWN0aW9uOjI=',
+  }}
 />
 
 #### last
@@ -307,7 +307,7 @@ At the bottom of the list will be the oldest item in the dataset. The top item i
 the newest of the 5 displayed (because we're going backward here).
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES($last: Int $before: String){
       pages(last: $last before: $before) {
         pageInfo {
@@ -325,10 +325,10 @@ the newest of the 5 displayed (because we're going backward here).
       }
     }
     "
-	variables={{
-		last: 5,
-		before: null,
-	}}
+  variables={{
+    last: 5,
+    before: null,
+  }}
 />
 
 So, we can see that `hasPreviousPage` is set to true, which means we have more items `before` this.
@@ -345,7 +345,7 @@ So, what we're saying is that we want `5` more items before the `startCursor` in
 As long as `hasPreviousPage` returns true, that means we have more data that we can paginate through.
 
 <GraphiQL
-	query="
+  query="
     query GET_PAGES($last: Int $before: String) {
       pages(last: $last before: $before) {
         pageInfo {
@@ -363,10 +363,10 @@ As long as `hasPreviousPage` returns true, that means we have more data that we 
       }
     }
     "
-	variables={{
-		last: 5,
-		before: "YXJyYXljb25uZWN0aW9uOjQyNw==",
-	}}
+  variables={{
+    last: 5,
+    before: 'YXJyYXljb25uZWN0aW9uOjQyNw==',
+  }}
 />
 
 ### Page
@@ -374,7 +374,7 @@ As long as `hasPreviousPage` returns true, that means we have more data that we 
 If we know the ID of a Page, we can query for the page individually like so:
 
 <GraphiQL
-	query="
+  query="
   query GET_PAGE( $id: ID! ) {
     page( id: $id ) {
       id
@@ -385,9 +385,9 @@ If we know the ID of a Page, we can query for the page individually like so:
     }
   }
   "
-	variables={{
-		id: "cGFnZTo1Mg==",
-	}}
+  variables={{
+    id: 'cGFnZTo1Mg==',
+  }}
 />
 
 ### PageBy
@@ -398,7 +398,7 @@ ways to get an individual Page, but using the `pageBy` query.
 **Here's an example of getting a page by it's URI.**
 
 <GraphiQL
-	query="
+  query="
   query GET_PAGE_BY_URI( $uri: String ) {
     pageBy( uri: $uri ) {
       id
@@ -409,15 +409,15 @@ ways to get an individual Page, but using the `pageBy` query.
     }
   }
   "
-	variables={{
-		uri: "community",
-	}}
+  variables={{
+    uri: 'community',
+  }}
 />
 
 **Here's an example of getting a page by it's database ID.**
 
 <GraphiQL
-	query="
+  query="
   query GET_PAGE( $pageId: Int ) {
     pageBy( pageId: $pageId ) {
       id
@@ -428,9 +428,9 @@ ways to get an individual Page, but using the `pageBy` query.
     }
   }
   "
-	variables={{
-		pageId: 52,
-	}}
+  variables={{
+    pageId: 52,
+  }}
 />
 
 ## Mutations
@@ -462,7 +462,7 @@ of the `nonNull` input fields will need to be required, but any of the other fie
 but if included, still need to be of the specified Type defined in the Schema.
 
 <GraphiQL
-	query="
+  query="
   mutation CREATE_PAGE( $input:CreatePageInput! ){
     createPage( input: $input ) {
       page {
@@ -474,12 +474,12 @@ but if included, still need to be of the specified Type defined in the Schema.
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "CreatePage",
-			title: "New Page Title",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'CreatePage',
+      title: 'New Page Title',
+    },
+  }}
 />
 
 ### Update Page
@@ -487,7 +487,7 @@ but if included, still need to be of the specified Type defined in the Schema.
 Below is an example mutation to update a page. For this, we _must_ know the ID of the Post.
 
 <GraphiQL
-	query="
+  query="
   mutation UPDATE_Page( $input:UpdatePageInput! ){
     updatePage( input: $input ) {
       page {
@@ -499,13 +499,13 @@ Below is an example mutation to update a page. For this, we _must_ know the ID o
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "UpdatePage",
-			id: "cGFnZTo1Mg==",
-			title: "New Title for the Page",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'UpdatePage',
+      id: 'cGFnZTo1Mg==',
+      title: 'New Title for the Page',
+    },
+  }}
 />
 
 ### Delete Page
@@ -513,7 +513,7 @@ Below is an example mutation to update a page. For this, we _must_ know the ID o
 Below is an example mutation to delete a page. For this, we _must_ know the ID of the Page.
 
 <GraphiQL
-	query="
+  query="
   mutation DELETE_PAGE($input: DeletePageInput!) {
     deletePage(input: $input) {
       deletedId
@@ -523,10 +523,10 @@ Below is an example mutation to delete a page. For this, we _must_ know the ID o
     }
   }
   "
-	variables={{
-		input: {
-			clientMutationId: "DELETE_PAGE",
-			id: "cGFnZTo1Mg==",
-		},
-	}}
+  variables={{
+    input: {
+      clientMutationId: 'DELETE_PAGE',
+      id: 'cGFnZTo1Mg==',
+    },
+  }}
 />
