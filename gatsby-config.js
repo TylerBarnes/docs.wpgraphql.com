@@ -46,7 +46,7 @@ module.exports = {
         root: __dirname,
         subtitle: 'WPGraphQL',
         description: 'WPGraphQL documentation',
-        githubRepo: 'wp-graphql/docs.wpgraphql.com',
+        githubRepo: 'wp-graphql/wp-graphql',
         defaultVersion: 0.4,
         trackingId: 'UA-111783024-1',
         twitterHandle: 'wpgraphql',
