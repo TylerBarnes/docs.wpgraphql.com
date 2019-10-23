@@ -6,7 +6,8 @@ description: How to install and activate the WPGraphQL plugin
 import Note from '../../src/components/Note'
 
 <Note type="warning" title="New to WordPress?">
-If you're new to WordPress we recommend getting started by downloading and using <a href="https://localbyflywheel.com/">Local By Flywheel</a>
+  If you're new to WordPress we recommend getting started by downloading and
+  using <a href="https://localbyflywheel.com/">Local By Flywheel</a>
 </Note>
 
 ## WPGraphQL WordPress Plugin
@@ -15,13 +16,17 @@ WPGraphQL is a free, open-source WordPress plugin that turns your WordPress site
 server.
 
 ## Breaking Change Notice
+
 <Note type="warning">
 Until WPGraphQL hits a v1.0.0, breaking changes to the Schema and underlying code should be expected.
 
 This **_doesn't_** mean that the plugin is not ready for use in production (it's used in production
 on some big sites today), it just means that if you choose to use WPGraphQL, you should pay attention
 to [releases](https://github.com/wp-graphql/wp-graphql/releases) in case breaking changes are introduced.
+
 </Note>
+
+<p></p>
 
 Don’t hesitate to start using the plugin, but just be sure to follow along with releases and keep up
 to date with conversations in Slack [join here](https://wpgql-slack.herokuapp.com/)
@@ -46,15 +51,18 @@ Add the downloaded/cloned plugin to your WordPress plugin directory. On a typica
 this is located at `/wp-content/plugins`.
 
 <Note type="info" title="Install Directory">
-To minimize risk of unintended behavior, it’s best for your plugin directory to be "wp-graphql" and
-not something else, like "wp-graphql-master" or "wp-graphql-develop"
+  To minimize risk of unintended behavior, it’s best for your plugin directory
+  to be "wp-graphql" and not something else, like "wp-graphql-master" or
+  "wp-graphql-develop"
 </Note>
 
 ## Activate the Plugin
+
 Once the plugin is in the WordPress plugins directory, it can be activated by clicking “Activate” on
 the plugin screen, or via WP CLI `wp plugin activate wp-graphql`
 
 ### Verify the Endpoint Works
+
 The most common use of WPGraphQL is as an API endpoint that can be accessed via HTTP requests
 (although it can be used without remote HTTP requests as well)
 
@@ -96,5 +104,5 @@ There are many GraphQL IDE tools in the wild, such as:
 Feel free to use any of the tools mentioned, explore and discover others that aren’t mentioned, or even build your own!
 
 Just note that guides and documentation on this site will reference WPGraphiQL and GraphiQL.app and will also make use of inline instances of the GraphiQL React component to show examples.
-</Note>
 
+</Note>
