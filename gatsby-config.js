@@ -1,4 +1,6 @@
 const themeOptions = require('gatsby-theme-apollo-docs/theme-options')
+const mapKeys = require('lodash/mapKeys')
+const { colors } = require('gatsby-theme-apollo-core/src/utils/colors')
 
 module.exports = {
   siteMetadata: {
@@ -28,6 +30,12 @@ module.exports = {
         theme_color: `#0E2339`,
         display: `minimal-ui`,
         icon: `source/images/icon.png`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-antd',
+      options: {
+        style: false,
       },
     },
     {
