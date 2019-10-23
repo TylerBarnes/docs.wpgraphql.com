@@ -1,6 +1,4 @@
 const themeOptions = require('gatsby-theme-apollo-docs/theme-options')
-const mapKeys = require('lodash/mapKeys')
-const { colors } = require('gatsby-theme-apollo-core/src/utils/colors')
 
 module.exports = {
   siteMetadata: {
