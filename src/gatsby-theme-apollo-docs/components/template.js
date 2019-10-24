@@ -77,18 +77,18 @@ export default function Template(props) {
               graphManagerUrl
             }
           }
-          childMarkdownRemark {
-            frontmatter {
-              title
-            }
-            headings {
-              value
-              depth
-            }
-            fields {
-              graphManagerUrl
-            }
-          }
+          # childMarkdownRemark {
+          #   frontmatter {
+          #     title
+          #   }
+          #   headings {
+          #     value
+          #     depth
+          #   }
+          #   fields {
+          #     graphManagerUrl
+          #   }
+          # }
         }
       }
     }
