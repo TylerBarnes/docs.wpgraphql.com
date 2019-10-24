@@ -3,7 +3,8 @@ const themeOptions = require('gatsby-theme-apollo-docs/theme-options')
 module.exports = {
   siteMetadata: {
     siteName: `WPGraphQL`,
-    description: `Documentation and marketing site for WPGraphQL. Built with Gatsby.`,
+    title: `WPGraphQL Docs`,
+    description: `WPGraphQL (GraphQL for WordPress) documentation.`,
     twitterHandle: `wpgraphql`,
     author: `WPGraphQL`,
   },
@@ -45,7 +46,7 @@ module.exports = {
         baseUrl: 'https://docs.wpgraphql.com',
         root: __dirname,
         subtitle: 'WPGraphQL',
-        description: 'WPGraphQL documentation',
+        description: 'WPGraphQL (GraphQL for WordPress) documentation.',
         githubRepo: 'wp-graphql/wp-graphql',
         defaultVersion: 0.4,
         trackingId: 'UA-111783024-1',
