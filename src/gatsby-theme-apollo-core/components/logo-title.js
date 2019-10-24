@@ -35,6 +35,7 @@ export default function LogoTitle(props) {
     <Container className={props.className}>
       {!props.noLogo && !!file && (
         <img
+          alt="WPGraphQL Logo"
           style={{ marginRight: 10, maxWidth: 50 }}
           src={file.childImageSharp.fluid.src}
         />
