@@ -64,6 +64,10 @@ module.exports = {
             url: 'https://www.wpgraphql.com/acf/',
             description: 'WPGraphQL for Advanced Custom Fields',
           },
+          Github: {
+            url: 'https://github.com/wp-graphql',
+            description: 'WPGraphQL on Github',
+          },
         },
         footerNavConfig: {
           Blog: {
