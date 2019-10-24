@@ -175,7 +175,6 @@ class GraphiQLComponent extends Component {
     const {
       query,
       variables,
-      response,
       withDocs = false,
       showJoyride = false,
       authButtons = {},

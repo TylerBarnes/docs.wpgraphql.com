@@ -4,7 +4,13 @@ import { Helmet } from 'react-helmet'
 // import { withPrefix } from 'gatsby'
 
 export default function SEO(props) {
-  const { title, description, siteName, twitterHandle, baseUrl } = props
+  const {
+    title,
+    description,
+    siteName,
+    twitterHandle,
+    // baseUrl
+  } = props
   //   const imagePath = withPrefix('/' + props.image)
   return (
     <Helmet>

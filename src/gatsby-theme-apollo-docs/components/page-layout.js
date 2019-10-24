@@ -3,7 +3,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 import DocsetSwitcher from 'gatsby-theme-apollo-docs/src/components/docset-switcher'
 import PropTypes from 'prop-types'
 import React, { createContext, useMemo, useRef, useState } from 'react'
-import Search from 'gatsby-theme-apollo-docs/src/components/search'
+// import Search from 'gatsby-theme-apollo-docs/src/components/search'
 import SelectLink from 'gatsby-theme-apollo-docs/src/components/select-link'
 import styled from '@emotion/styled'
 import { Button } from 'gatsby-theme-apollo-docs/src/components/buttons'
@@ -129,8 +129,15 @@ export default function PageLayout(props) {
   }
 
   const { pathname } = props.location
-  const { siteName, title, subtitle } = data.site.siteMetadata
+
+  const {
+    siteName,
+    // title,
+    subtitle,
+  } = data.site.siteMetadata
+
   const { sidebarContents, versions, defaultVersion } = props.pageContext
+
   const {
     spectrumHandle,
     twitterHandle,
