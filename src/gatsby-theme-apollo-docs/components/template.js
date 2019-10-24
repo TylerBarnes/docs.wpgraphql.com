@@ -11,7 +11,7 @@ import { ContentWrapper } from 'gatsby-theme-apollo-core'
 import { Helmet } from 'react-helmet'
 import { MDXProvider } from '@mdx-js/react'
 import { TypescriptApiBoxContext } from 'gatsby-theme-apollo-docs/src/components/typescript-api-box'
-import { graphql, navigate } from 'gatsby'
+import { graphql, navigate, useStaticQuery } from 'gatsby'
 
 const StyledContentWrapper = styled(ContentWrapper)({
   paddingBottom: 0,
@@ -38,7 +38,7 @@ function CustomLink(props) {
     }
   }
 
-  return <a {...linkProps} />
+  return <a {...linkProps}>{linkProps.children}</a>
 }
 
 CustomLink.propTypes = {
@@ -56,11 +56,77 @@ const renderAst = new rehypeReact({
 }).Compiler
 
 export default function Template(props) {
+  // since we can't shadow the page query below
+  // we need to get all headings of all pages
+  // then find the list of headings relevant to this page.
+  // This can be removed when this PR is merged and released:
+  // https://github.com/gatsbyjs/gatsby/pull/17681
+  const { tempAllFile } = useStaticQuery(graphql`
+    query TEMPORARY_HEADINGS_QUERY {
+      tempAllFile: allFile {
+        nodes {
+          childMdx {
+            frontmatter {
+              title
+            }
+            headings {
+              value
+              depth
+            }
+            fields {
+              graphManagerUrl
+            }
+          }
+          childMarkdownRemark {
+            frontmatter {
+              title
+            }
+            headings {
+              value
+              depth
+            }
+            fields {
+              graphManagerUrl
+            }
+          }
+        }
+      }
+    }
+  `)
+
   const { hash, pathname } = props.location
+
   const { file, site } = props.data
-  const { frontmatter, headings, fields } =
+
+  let { frontmatter, headings, fields } =
     file.childMarkdownRemark || file.childMdx
+
+  // remove this when
+  // https://github.com/gatsbyjs/gatsby/pull/17681 is merged
+  // see note above for more info
+  const tempHeadingsQueryNode = tempAllFile.nodes.find(node => {
+    if (!node.childMarkdownRemark && !node.childMdx) {
+      return false
+    }
+
+    const availableData = node.childMdx || node.childMarkdownRemark
+
+    return availableData.frontmatter.title === frontmatter.title
+  })
+
+  // remove this when
+  // https://github.com/gatsbyjs/gatsby/pull/17681 is merged
+  // see note above for more info
+  const availableTempHeadingsQueryData =
+    tempHeadingsQueryNode.childMdx || tempHeadingsQueryNode.childMarkdownRemark
+
+  // remove this when
+  // https://github.com/gatsbyjs/gatsby/pull/17681 is merged
+  // see note above for more info
+  headings = availableTempHeadingsQueryData.headings
+
   const { title, description, twitterHandle } = site.siteMetadata
+
   const {
     sidebarContents,
     githubUrl,
@@ -127,47 +193,47 @@ Template.propTypes = {
   location: PropTypes.object.isRequired,
 }
 
-export const pageQuery = graphql`
-  query TemplatePageQuery($id: String) {
-    site {
-      pathPrefix
-      siteMetadata {
-        title
-        description
-        twitterHandle
-      }
-    }
-    file(id: { eq: $id }) {
-      childMarkdownRemark {
-        frontmatter {
-          title
-          description
-        }
-        headings {
-          value
-          depth
-        }
-        fields {
-          image
-          graphManagerUrl
-        }
-        htmlAst
-      }
-      childMdx {
-        frontmatter {
-          title
-          description
-        }
-        headings {
-          value
-          depth
-        }
-        fields {
-          image
-          graphManagerUrl
-        }
-        body
-      }
-    }
-  }
-`
+// export const pageQuery = graphql`
+//   query TemplatePageQuery($id: String) {
+//     site {
+//       pathPrefix
+//       siteMetadata {
+//         title
+//         description
+//         twitterHandle
+//       }
+//     }
+//     file(id: { eq: $id }) {
+//       childMarkdownRemark {
+//         frontmatter {
+//           title
+//           description
+//         }
+//         headings {
+//           value
+//           depth
+//         }
+//         fields {
+//           image
+//           graphManagerUrl
+//         }
+//         htmlAst
+//       }
+//       childMdx {
+//         frontmatter {
+//           title
+//           description
+//         }
+//         headings {
+//           value
+//           depth
+//         }
+//         fields {
+//           image
+//           graphManagerUrl
+//         }
+//         body
+//       }
+//     }
+//   }
+// `
